@@ -79,8 +79,7 @@ int main() {
         sprintf(str, "HELLO WORLD! %d  ", count);
         drawString(50,50,RED,str,16);
         drawBar(50,70,100,count);
-        sprintf(str, "????");
-        drawString(110,50,BLACK,str,5);
+
         count++;
         if (count==100){
             count=0;
@@ -88,10 +87,7 @@ int main() {
         fps = 1/((float) _CP0_GET_COUNT()/24000000);
         sprintf(str, "fps:%4.0f ", fps);
         drawString(50,85,RED,str,9);
-        delay();
-        sprintf(str, "?????");
-        drawString(75,85,BLACK,str,5);
-        delay();
+
        
     }
 }

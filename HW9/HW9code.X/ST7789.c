@@ -109,12 +109,18 @@ void LCD_clearScreen(unsigned short color) {
 
 void drawBar(unsigned short x, unsigned short y,unsigned char progress, unsigned char count){
     int i=0;
+    int j=0;
     for (i=0;i<progress;i++){
         if (i<count){
-        drawChar(x+(i-2),y,RED,0x7c);
+            for (j=0;j<8;j++){
+                LCD_drawPixel(x+i, y+j, RED); 
+            }
+        //drawChar(x+(i-2),y,RED,0x7c);
         }
         else{
-        drawChar(x+(i-2),y,GREEN,0x7c);
+            for (j=0;j<8;j++){
+                LCD_drawPixel(x+i, y+j, GREEN); 
+            }
         }
     }
 }
@@ -143,6 +149,7 @@ void drawChar(unsigned short x, unsigned short y, unsigned short color, unsigned
                 LCD_drawPixel(x+j, y+i, color); 
             }
             else{
+                LCD_drawPixel(x+j, y+i, BLACK);
             }
             my_char = my_char >> 1;
         }
