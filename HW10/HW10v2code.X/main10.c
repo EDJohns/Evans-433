@@ -46,6 +46,7 @@ typedef struct {
 
 void delay(void);
 void ws2812b_setColor(wsColor * c, int numLEDs);
+wsColor HSBtoRGB(float hue, float sat, float brightness);
 
 void ws2812b_setup() {
     T2CONbits.TCKPS = 0; // Timer2 prescaler N=1 (1:1)
@@ -73,22 +74,51 @@ int main() {
     __builtin_enable_interrupts();
     
     wsColor Carray[4];
-    Carray[0].r=255 ;
-    Carray[0].g=0;
-    Carray[0].b=0;
-    Carray[1].r=0;
-    Carray[1].g=255;
-    Carray[1].b=0;
-    Carray[2].r=0;
-    Carray[2].g=0;
-    Carray[2].b=255;
-    Carray[3].r=155;
-    Carray[3].g=155;
-    Carray[3].b=0;
+    float hue=0;
+    float hue2=80.0;
+    float hue3=160.0;
+    float hue4=240.0;
+    Carray[0]=HSBtoRGB(60.0,1.0,1.0);
+    Carray[1]=HSBtoRGB(120.0,1.0,1.0);
+    Carray[2]=HSBtoRGB(180.0,1.0,1.0);
+    Carray[3]=HSBtoRGB(240.0,1.0,1.0);
+//    Carray[0].r=255 ;
+//    Carray[0].g=0;
+//    Carray[0].b=0;
+//    Carray[1].r=0;
+//    Carray[1].g=255;
+//    Carray[1].b=0;
+//    Carray[2].r=0;
+//    Carray[2].g=0;
+//    Carray[2].b=255;
+//    Carray[3].r=155;
+//    Carray[3].g=155;
+//    Carray[3].b=0;
 
     ws2812b_setup();
     int i=0;
     while(1){
+        Carray[0]=HSBtoRGB(hue,1.0,1.0);
+        Carray[1]=HSBtoRGB(hue2,1.0,1.0);
+        Carray[2]=HSBtoRGB(hue3,1.0,1.0);
+        Carray[3]=HSBtoRGB(hue4,1.0,1.0);
+        hue= hue+10;
+        if (hue>359){
+            hue=0;
+        }
+        hue2= hue2+10;
+        if (hue2>359){
+            hue2=0;
+        }
+        hue3= hue3+10;
+        if (hue3>359){
+            hue3=0;
+        }
+        hue4= hue4+10;
+        if (hue4>359){
+            hue4=0;
+        }
+        
         ws2812b_setColor(Carray,4);
         delay();
     }
@@ -97,14 +127,14 @@ int main() {
 
 void delay(void){
     _CP0_SET_COUNT(0);
-    while (_CP0_GET_COUNT()<6000000) {
+    while (_CP0_GET_COUNT()<2000000) {
         ;
     }
 }
 void delay2(void){
     LATAINV = 0b0000100; 
     _CP0_SET_COUNT(0);
-    while (_CP0_GET_COUNT()<6000000) {
+    while (_CP0_GET_COUNT()<2000000) {
         ;
     }
 }
@@ -207,4 +237,79 @@ void ws2812b_setColor(wsColor * c, int numLEDs) {
     LATBbits.LATB3 = 0;
     TMR2 = 0;
     while(TMR2 < 2400){} // wait 50uS, reset condition
+}
+
+// adapted from https://forum.arduino.cc/index.php?topic=8498.0
+// hue is a number from 0 to 360 that describes a color on the color wheel
+// sat is the saturation level, from 0 to 1, where 1 is full color and 0 is gray
+// brightness sets the maximum brightness, from 0 to 1
+wsColor HSBtoRGB(float hue, float sat, float brightness) {
+    float red = 0.0;
+    float green = 0.0;
+    float blue = 0.0;
+
+    if (sat == 0.0) {
+        red = brightness;
+        green = brightness;
+        blue = brightness;
+    } else {
+        if (hue == 360.0) {
+            hue = 0;
+        }
+
+        int slice = hue / 60.0;
+        float hue_frac = (hue / 60.0) - slice;
+
+        float aa = brightness * (1.0 - sat);
+        float bb = brightness * (1.0 - sat * hue_frac);
+        float cc = brightness * (1.0 - sat * (1.0 - hue_frac));
+
+        switch (slice) {
+            case 0:
+                red = brightness;
+                green = cc;
+                blue = aa;
+                break;
+            case 1:
+                red = bb;
+                green = brightness;
+                blue = aa;
+                break;
+            case 2:
+                red = aa;
+                green = brightness;
+                blue = cc;
+                break;
+            case 3:
+                red = aa;
+                green = bb;
+                blue = brightness;
+                break;
+            case 4:
+                red = cc;
+                green = aa;
+                blue = brightness;
+                break;
+            case 5:
+                red = brightness;
+                green = aa;
+                blue = bb;
+                break;
+            default:
+                red = 0.0;
+                green = 0.0;
+                blue = 0.0;
+                break;
+        }
+    }
+
+    unsigned char ired = red * 255.0;
+    unsigned char igreen = green * 255.0;
+    unsigned char iblue = blue * 255.0;
+
+    wsColor c;
+    c.r = ired;
+    c.g = igreen;
+    c.b = iblue;
+    return c;
 }
