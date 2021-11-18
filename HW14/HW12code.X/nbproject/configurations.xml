@@ -13,6 +13,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>main12.c</itemPath>
+      <itemPath>../../HW9/HW9code.X/ST7789.c</itemPath>
+      <itemPath>../../HW9/HW9code.X/ST7789.h</itemPath>
+      <itemPath>../../HW9/HW9code.X/font.h</itemPath>
+      <itemPath>../../HW9/HW9code.X/spi.c</itemPath>
+      <itemPath>../../HW9/HW9code.X/spi.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -20,6 +25,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>../../HW9/HW9code.X</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">

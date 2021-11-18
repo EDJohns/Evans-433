@@ -1,9 +1,10 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
-#include "font.h"
 #include "spi.h"
 #include "ST7789.h"
+#include "font.h"
 #include <stdio.h>
+#include <math.h>
 //#include SPI__H__
 //#include <studio.h>
 
@@ -45,7 +46,6 @@ void delay(void){
     }
 }
 
-
 int main() {
     __builtin_disable_interrupts(); // disable interrupts while initializing things
 
@@ -63,9 +63,25 @@ int main() {
     TRISAbits.TRISA2=0;
     LATAbits.LATA4=0;
     
+    // Initalize re programmble button to RB3 -> OC1
+    ANSELA = 0;
+    ANSELB = 0;
+    RPB3Rbits.RPB3R=0b0101;
+    
+    // Set PWM wave using timer 2
+    T2CONbits.TCKPS = 0b100; // Timer2 prescaler N=16
+    PR2 = 59999; // period = (PR2+1) * N * 20.833 ns 
+    TMR2 = 0; // initial TMR2 count is 0
+    OC1CONbits.OCM = 0b110; // PWM mode without fault pin; other OC1CON bits are defaults
+    OC1RS = 1500; // set duty cycle
+    OC1R = 1500; // initialize before turning OC1 on; afterward it is read-only
+    T2CONbits.ON = 1; // turn on Timer2
+    OC1CONbits.ON = 1; // turn on OC1
+    
     __builtin_enable_interrupts();
     
     int count=0;
+
     float fps=30;
     initSPI();
     LCD_init();
@@ -76,8 +92,8 @@ int main() {
     while (1) {  
         _CP0_SET_COUNT(0);
         //LCD_clearScreen(BLACK);
-        sprintf(str, "HELLO WORLD! %d  ", count);
-        drawString(50,50,RED,str,16);
+        sprintf(str, "Speed to Dispense %d    ", count);
+        drawString(50,50,RED,str,23);
         drawBar(50,70,100,count);
 
         count++;
@@ -87,8 +103,11 @@ int main() {
         fps = 1/((float) _CP0_GET_COUNT()/24000000);
         sprintf(str, "fps:%4.0f ", fps);
         drawString(50,85,RED,str,9);
-
+        
+        _CP0_SET_COUNT(0);
+        while (_CP0_GET_COUNT()<240000) { // 50 hz delay 
+            ;
+        }
        
     }
 }
-

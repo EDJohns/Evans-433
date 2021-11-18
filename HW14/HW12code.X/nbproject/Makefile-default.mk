@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main12.c
+SOURCEFILES_QUOTED_IF_SPACED=main12.c ../../HW9/HW9code.X/ST7789.c ../../HW9/HW9code.X/spi.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main12.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main12.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main12.o ${OBJECTDIR}/_ext/1698897340/ST7789.o ${OBJECTDIR}/_ext/1698897340/spi.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main12.o.d ${OBJECTDIR}/_ext/1698897340/ST7789.o.d ${OBJECTDIR}/_ext/1698897340/spi.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main12.o
+OBJECTFILES=${OBJECTDIR}/main12.o ${OBJECTDIR}/_ext/1698897340/ST7789.o ${OBJECTDIR}/_ext/1698897340/spi.o
 
 # Source Files
-SOURCEFILES=main12.c
+SOURCEFILES=main12.c ../../HW9/HW9code.X/ST7789.c ../../HW9/HW9code.X/spi.c
 
 
 
@@ -107,18 +107,42 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/main12.o: main12.c  .generated_files/8c83f89ccf1e34c15dd62054ae6916d5dc4fbecd.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/main12.o: main12.c  .generated_files/81301b2195136e4df3b9f25f5bc5cf83f2537074.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main12.o.d 
 	@${RM} ${OBJECTDIR}/main12.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/main12.o.d" -o ${OBJECTDIR}/main12.o main12.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
+${OBJECTDIR}/_ext/1698897340/ST7789.o: ../../HW9/HW9code.X/ST7789.c  .generated_files/9e80ae1d4a683b9227a9505fea5d619840c36d37.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1698897340" 
+	@${RM} ${OBJECTDIR}/_ext/1698897340/ST7789.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1698897340/ST7789.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1698897340/ST7789.o.d" -o ${OBJECTDIR}/_ext/1698897340/ST7789.o ../../HW9/HW9code.X/ST7789.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1698897340/spi.o: ../../HW9/HW9code.X/spi.c  .generated_files/3c13aa3ef83a870ddeccaf77a01edf1be9f2fbc.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1698897340" 
+	@${RM} ${OBJECTDIR}/_ext/1698897340/spi.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1698897340/spi.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1698897340/spi.o.d" -o ${OBJECTDIR}/_ext/1698897340/spi.o ../../HW9/HW9code.X/spi.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
 else
-${OBJECTDIR}/main12.o: main12.c  .generated_files/6c8dff5f1a893e6dd124ab2e42b96809f4220317.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/main12.o: main12.c  .generated_files/6fe4fae752a500a38966d1d3f9d548dc2a9c3a04.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main12.o.d 
 	@${RM} ${OBJECTDIR}/main12.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/main12.o.d" -o ${OBJECTDIR}/main12.o main12.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1698897340/ST7789.o: ../../HW9/HW9code.X/ST7789.c  .generated_files/4912a7470ea79bd647325f5864fc8c47b702ede6.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1698897340" 
+	@${RM} ${OBJECTDIR}/_ext/1698897340/ST7789.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1698897340/ST7789.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1698897340/ST7789.o.d" -o ${OBJECTDIR}/_ext/1698897340/ST7789.o ../../HW9/HW9code.X/ST7789.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1698897340/spi.o: ../../HW9/HW9code.X/spi.c  .generated_files/fe1517cb04ee7c44121e78e9febfcb5362fc6960.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1698897340" 
+	@${RM} ${OBJECTDIR}/_ext/1698897340/spi.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1698897340/spi.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1698897340/spi.o.d" -o ${OBJECTDIR}/_ext/1698897340/spi.o ../../HW9/HW9code.X/spi.c    -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 endif
 
